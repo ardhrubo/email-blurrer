@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Hider Test Page</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; line-height: 1.6; }
+      .box { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+      code, pre { background: #f6f8fa; padding: 2px 4px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Email Hider Test</h1>
+
+    <div class="box">
+      <h3>Static text emails (should be blurred/hidden)</h3>
+      <p>Contact us at support@example.com</p>
+      <p>Backup contact: john.doe+work@company.io</p>
+    </div>
+
+    <div class="box">
+      <h3>Inside input/textarea (should NOT be modified)</h3>
+      <input value="inside.input@example.com" style="width: 320px" />
+      <br /><br />
+      <textarea rows="2" cols="45">inside.textarea@example.com</textarea>
+    </div>
+
+    <div class="box">
+      <h3>Dynamic content (should be blurred/hidden after 2s)</h3>
+      <div id="dynamic">Waiting...</div>
+    </div>
+
+    <script>
+      setTimeout(() => {
+        document.getElementById('dynamic').textContent =
+          'New dynamic email: dynamic.person@live-test.dev';
+      }, 2000);
+    </script>
+  </body>
+</html>

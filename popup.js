@@ -7,14 +7,8 @@
   });
 
   ns.ui.bindEvents(elements, {
-    onEnabledChange(enabled) {
-      ns.storage.saveSettings({ enabled });
-    },
-    onModeChange(mode) {
-      ns.storage.saveSettings({ mode });
-    },
-    onBlurChange(blurPx) {
-      ns.storage.saveSettings({ blurPx });
-    },
+    onChange(newSettings) {
+      ns.storage.saveSettings(newSettings);
+    }
   });
 })();
