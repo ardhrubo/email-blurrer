@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Email Hider",
+  "version": "1.0.0",
+  "description": "Hides or blurs email addresses on web pages for privacy.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["content/constants.js", "content/masking.js", "content/runtime.js", "content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Email Hider",
+    "default_popup": "popup.html"
+  }
+}

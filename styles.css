@@ -1,0 +1,17 @@
+.email-hider-email {
+  border-radius: 4px;
+  padding: 0 0.12em;
+  white-space: nowrap;
+}
+
+.email-hider-mode-blur {
+  filter: blur(var(--email-hider-blur, 6px));
+  user-select: none;
+}
+
+.email-hider-mode-hide {
+  color: transparent;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
+  background: rgba(127, 127, 127, 0.15);
+  user-select: none;
+}
