@@ -120,3 +120,13 @@ The extension is modular and watches your active document using a highly optimiz
 **License:** Open Source. Use it, fork it, break it, fix it, send a PR. 
 
 *If this saved your job or your YouTube video, give the repo a star. Or don't. We're not your boss.* 😉
+
+---
+
+## ☕ Support the Project
+
+If you find this extension useful, please consider supporting its development. Every coffee helps!
+
+<a href="https://www.buymeacoffee.com/ardhrubo" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
+</a>
