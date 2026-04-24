@@ -4,11 +4,12 @@
   <p><b>Never accidentally leak your email on a screen recording again.</b></p>
   <p>
     <a href="https://github.com/ardhrubo/email-blurrer/releases/latest">
-      <img src="https://img.shields.io/github/v/release/ardhrubo/email-blurrer?style=for-the-badge" alt="Latest Release">
+      <img src="https://img.shields.io/github/v/release/ardhrubo/email-blurrer" alt="Latest Release">
     </a>
     <a href="https://github.com/ardhrubo/email-blurrer/stargazers">
-      <img src="https://img.shields.io/github/stars/ardhrubo/email-blurrer?style=for-the-badge" alt="GitHub Stars">
+      <img src="https://img.shields.io/github/stars/ardhrubo/email-blurrer" alt="GitHub Stars">
     </a>
+    <img src="https://img.shields.io/badge/size-301KB-brightgreen" alt="Extension Size">
   </p>
 </div>
 
@@ -40,7 +41,7 @@ Have you ever been recording a tutorial, leading a team meeting, or sharing your
 
 ---
 
-## � Installation
+## Installation
 
 You can install the extension in two ways:
 
