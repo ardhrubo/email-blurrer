@@ -2,16 +2,54 @@
   border-radius: 4px;
   padding: 0 0.12em;
   white-space: nowrap;
+  transition: filter 0.2s, background 0.2s, color 0.2s, text-shadow 0.2s;
+  cursor: default;
+}
+
+body.email-hider-no-hover .email-hider-email {
+  pointer-events: none !important;
+}
+
+body.email-hider-screen-recording-mode .email-hider-email {
+  transition: none !important;
+  pointer-events: none !important;
 }
 
 .email-hider-mode-blur {
-  filter: blur(var(--email-hider-blur, 6px));
-  user-select: none;
+  filter: blur(var(--email-hider-blur, 6px)) !important;
+  user-select: none !important;
 }
 
 .email-hider-mode-hide {
-  color: transparent;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.45);
-  background: rgba(127, 127, 127, 0.15);
+  color: transparent !important;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5) !important;
+  background: rgba(127, 127, 127, 0.2) !important;
   user-select: none;
+}
+
+.email-hider-mode-redact {
+  color: transparent !important;
+  background-color: #111 !important;
+  user-select: none;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* Screen Recording forces everything to Redact-style black bars */
+body.email-hider-screen-recording-mode .email-hider-mode-blur,
+body.email-hider-screen-recording-mode .email-hider-mode-hide {
+  color: transparent !important;
+  background-color: #111 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  user-select: none;
+}
+
+/* Hover reveal (only if safe to do so) */
+body:not(.email-hider-no-hover):not(.email-hider-screen-recording-mode) .email-hider-email:hover {
+  filter: blur(0) !important;
+  color: inherit !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  user-select: text;
 }

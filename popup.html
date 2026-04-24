@@ -1,120 +1,255 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Email Hider</title>
-    <style>
-      :root {
-        color-scheme: dark;
-        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Blurrer</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --danger: #f85149;
+      --success: #2ea043;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    body {
+      margin: 0;
+      width: 320px;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: linear-gradient(180deg, rgba(88,166,255,0.1) 0%, var(--bg) 100%);
+      padding: 24px 20px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .shield-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      background: linear-gradient(135deg, #1f6feb 0%, #3fb950 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(88,166,255,0.2);
+    }
+    .shield-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: white;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 0 0 4px;
+    }
+    .subtitle {
+      font-size: 12px;
+      color: #8b949e;
+      margin: 0;
+    }
+    .section {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child {
+      border-bottom: none;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .row:last-child {
+      margin-bottom: 0;
+    }
+    .label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #e6edf3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .subtext {
+      font-size: 12px;
+      color: #8b949e;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    /* Toggles */
+    .toggle {
+      appearance: none;
+      width: 36px;
+      height: 20px;
+      background: #21262d;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      border: 1px solid var(--border);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 16px;
+      height: 16px;
+      background: #8b949e;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+    .toggle:checked {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .toggle:checked::after {
+      background: #fff;
+      transform: translateX(16px);
+    }
+    .toggle.danger:checked {
+      background: var(--danger);
+      border-color: var(--danger);
+      box-shadow: 0 0 10px rgba(248,81,73,0.3);
+    }
+    
+    /* Select & Slider */
+    select {
+      width: 100%;
+      background: var(--card-bg);
+      color: #e6edf3;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-family: var(--font);
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+    }
+    .select-wrap {
+      position: relative;
+      margin-top: 8px;
+    }
+    .select-wrap::after {
+      content: '▼';
+      font-size: 10px;
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #8b949e;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      margin-top: 8px;
+    }
+    .range-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #8b949e;
+      margin-top: 4px;
+    }
+    .indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--danger);
+      display: inline-block;
+      box-shadow: 0 0 8px var(--danger);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    .disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="shield-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <h1 class="title">Email Blurrer</h1>
+    <p class="subtitle">Alt+Shift+H to quickly toggle</p>
+  </div>
 
-      body {
-        margin: 0;
-        width: 320px;
-        background: linear-gradient(180deg, #101827 0%, #0b1220 100%);
-        color: #e5eefb;
-      }
-
-      .card {
-        padding: 16px;
-      }
-
-      .title {
-        margin: 0 0 6px;
-        font-size: 18px;
-        font-weight: 700;
-      }
-
-      .subtitle {
-        margin: 0 0 16px;
-        color: #9fb2d1;
-        font-size: 12px;
-        line-height: 1.5;
-      }
-
-      .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        margin: 14px 0;
-      }
-
-      .label {
-        font-size: 13px;
-        color: #d6e2f2;
-      }
-
-      .toggle {
-        width: 18px;
-        height: 18px;
-        accent-color: #7c9cff;
-      }
-
-      select,
-      input[type="range"] {
-        width: 100%;
-      }
-
-      select {
-        margin-top: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.06);
-        color: #edf3ff;
-        padding: 10px 12px;
-        outline: none;
-      }
-
-      .hint {
-        margin-top: 8px;
-        font-size: 11px;
-        color: #8ba1c7;
-      }
-
-      .range-wrap {
-        display: grid;
-        gap: 8px;
-      }
-
-      .value {
-        font-size: 12px;
-        color: #b8c7e1;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1 class="title">Email Hider</h1>
-      <p class="subtitle">Blur or mask email addresses found on the current page.</p>
-
-      <div class="row">
-        <div class="label">Enable protection</div>
-        <input id="enabled" class="toggle" type="checkbox" />
+  <div class="section">
+    <div class="row">
+      <div>
+        <div class="label">Enable Protection</div>
       </div>
+      <input type="checkbox" id="enabled" class="toggle">
+    </div>
+    <div class="row">
+      <div style="flex:1; padding-right:12px;">
+        <div class="label"><span id="recording-indicator" class="indicator" style="display:none;"></span>Safe Mode</div>
+        <div class="subtext">For screen recordings. Forces robust un-revertible redaction.</div>
+      </div>
+      <input type="checkbox" id="screenRecordingMode" class="toggle danger">
+    </div>
+  </div>
 
-      <div class="row" style="display:block;">
-        <div class="label">Mode</div>
+  <div id="advanced-settings" class="section">
+    <div class="row">
+      <div style="flex:1; padding-right:12px;">
+        <div class="label">Reveal on Hover</div>
+        <div class="subtext">Unblur emails by hovering over them.</div>
+      </div>
+      <input type="checkbox" id="revealOnHover" class="toggle">
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="label">Masking Style</div>
+      <div class="select-wrap">
         <select id="mode">
           <option value="blur">Blur</option>
-          <option value="hide">Hide</option>
+          <option value="hide">Invisible</option>
+          <option value="redact">Redact (Black bar)</option>
         </select>
       </div>
-
-      <div class="row" style="display:block;">
-        <div class="range-wrap">
-          <div class="label">Blur strength</div>
-          <input id="blurPx" type="range" min="2" max="16" step="1" />
-          <div class="value"><span id="blurPxValue"></span> px</div>
-        </div>
-      </div>
-
-      <div class="hint">Tip: the extension watches dynamic pages too.</div>
     </div>
-    <script src="popup/storage.js"></script>
-    <script src="popup/ui.js"></script>
-    <script src="popup.js"></script>
-  </body>
-  </html>
+
+    <div id="blur-settings" style="margin-top: 16px;">
+      <div class="label">Blur Strength</div>
+      <input type="range" id="blurPx" min="2" max="24" step="1">
+      <div class="range-label">
+        <span>Low</span>
+        <span><span id="blurPxValue">6</span>px</span>
+        <span>High</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup/storage.js"></script>
+  <script src="popup/ui.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

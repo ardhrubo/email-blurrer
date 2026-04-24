@@ -5,6 +5,8 @@
     enabled: true,
     mode: "blur",
     blurPx: 6,
+    revealOnHover: false,
+    screenRecordingMode: false,
   };
 
   ns.storage = {

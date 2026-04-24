@@ -10,6 +10,11 @@
 
   function applyBlurAmount() {
     document.documentElement.style.setProperty("--email-hider-blur", `${settings.blurPx}px`);
+
+    if (document.body) {
+      document.body.classList.toggle(constants.NO_HOVER_CLASS, !settings.revealOnHover);
+      document.body.classList.toggle(constants.SAFE_MODE_CLASS, settings.screenRecordingMode);
+    }
   }
 
   function isInterestingNode(node) {
@@ -40,10 +45,20 @@
 
     observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        for (const node of mutation.addedNodes) {
-          if (isInterestingNode(node)) {
+        if (mutation.type === 'attributes') {
+          if (constants.ATTRIBUTES_TO_MASK.includes(mutation.attributeName)) {
             scheduleScan();
             return;
+          }
+        } else if (mutation.type === 'characterData') {
+          scheduleScan();
+          return;
+        } else {
+          for (const node of mutation.addedNodes) {
+            if (isInterestingNode(node)) {
+              scheduleScan();
+              return;
+            }
           }
         }
       }
@@ -52,6 +67,9 @@
     observer.observe(document.documentElement, {
       childList: true,
       subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: constants.ATTRIBUTES_TO_MASK,
     });
   }
 
