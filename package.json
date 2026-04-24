@@ -1,0 +1,9 @@
+{
+  "name": "email-hider",
+  "version": "1.0.0",
+  "description": "A browser extension to hide emails on a page.",
+  "private": true,
+  "devDependencies": {
+    "puppeteer": "^13.5.1"
+  }
+}

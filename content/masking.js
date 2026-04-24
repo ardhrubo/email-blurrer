@@ -66,9 +66,29 @@
   function unmaskInputs() {
     const elements = document.querySelectorAll('[data-email-hider-blurred-input]');
     for (const el of elements) {
-      el.style.removeProperty('filter');
+      restoreInputFilter(el);
       el.removeAttribute('data-email-hider-blurred-input');
     }
+  }
+
+  function getBlurredInputOriginalFilterAttribute() {
+    return 'data-email-hider-original-filter';
+  }
+
+  function restoreInputFilter(el) {
+    const originalFilterAttr = getBlurredInputOriginalFilterAttribute();
+    if (el.hasAttribute(originalFilterAttr)) {
+      const originalFilter = el.getAttribute(originalFilterAttr) || '';
+      if (originalFilter) {
+        el.style.setProperty('filter', originalFilter);
+      } else {
+        el.style.removeProperty('filter');
+      }
+      el.removeAttribute(originalFilterAttr);
+      return;
+    }
+
+    el.style.removeProperty('filter');
   }
 
   function wrapEmailsInTextNode(textNode, settings) {
@@ -190,6 +210,11 @@
       
       const val = el.value || el.placeholder || "";
       if (containsEmail(val)) {
+        const originalFilterAttr = getBlurredInputOriginalFilterAttribute();
+        if (!el.hasAttribute(originalFilterAttr)) {
+          el.setAttribute(originalFilterAttr, el.style.filter);
+        }
+
         const blurAmount = settings.screenRecordingMode ? 12 : settings.blurPx;
         el.style.setProperty('filter', `blur(${blurAmount}px)`, 'important');
         el.setAttribute('data-email-hider-blurred-input', 'true');
