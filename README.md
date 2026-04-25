@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icon.svg" width="128" alt="Email Blurrer Logo">
   <h1>Email Blurrer</h1>
-  <p><b>Never accidentally leak your email on a screen recording again.</b></p>
+  <p><b>A privacy-first browser extension to hide emails on any webpage.</b></p>
   <p>
     <a href="https://github.com/ardhrubo/email-blurrer/releases/latest">
       <img src="https://img.shields.io/github/v/release/ardhrubo/email-blurrer" alt="Latest Release">
@@ -9,8 +9,10 @@
     <a href="https://github.com/ardhrubo/email-blurrer/stargazers">
       <img src="https://img.shields.io/github/stars/ardhrubo/email-blurrer" alt="GitHub Stars">
     </a>
-    <img src="https://img.shields.io/badge/size-301KB-brightgreen" alt="Extension Size">
+    <img src="https://img.shields.io/badge/size-305KB-brightgreen" alt="Extension Size">
     <img src="https://img.shields.io/badge/Google%20Chrome-blue?logo=google-chrome&logoColor=white" alt="Supports Google Chrome">
+    <img src="https://img.shields.io/badge/Mozilla%20Firefox-orange?logo=firefox-browser&logoColor=white" alt="Supports Mozilla Firefox">
+    <img src="https://img.shields.io/badge/Microsoft%20Edge-blue?logo=microsoft-edge&logoColor=white" alt="Supports Microsoft Edge">
   </p>
 </div>
 
@@ -20,7 +22,7 @@ Have you ever been recording a tutorial, leading a team meeting, or sharing your
 
 **Fear no more.**
 
-**Email Blurrer** is a sleek, modern, and slightly over-engineered Chrome extension built specifically to protect your privacy. It finds emails anywhere on the page—even those hidden in attributes or loaded dynamically—and cloaks them in glorious, unreadable obscurity.
+**Email Blurrer** is a sleek, modern, and slightly over-engineered browser extension built specifically to protect your privacy. It finds emails anywhere on the page—even those hidden in attributes or loaded dynamically—and cloaks them in glorious, unreadable obscurity.
 
 <p align="center">
   <img src="promo/eb.jpeg" width="48%">
@@ -42,26 +44,30 @@ Have you ever been recording a tutorial, leading a team meeting, or sharing your
 
 ---
 
-## Installation
+## 🚀 Installation
 
-You can install the extension in two ways:
+You can install the extension from the official web stores or by loading it manually.
 
-### From the Chrome Web Store (Recommended)
+### From Web Stores (Recommended)
 
-The easiest way to get started is to install Email Blurrer directly from the Chrome Web Store.
+The easiest way to get started is to install Email Blurrer directly from your browser's web store.
 
-*(Link to be added once the extension is published)*
+*   **[Chrome Web Store](https://chrome.google.com/webstore/category/extensions)** *(Coming Soon)*
+*   **[Firefox Browser ADD-ONS](https://addons.mozilla.org/)** *(Coming Soon)*
+*   **[Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home)** *(Coming Soon)*
 
-### From a ZIP File (Manual Install)
+### Manual Installation (from a Release)
 
-If you want to run the latest version from the source code or a release:
-
-1.  Download the latest release `.zip` file from the [**Releases**](https://github.com/ardhrubo/email-blurrer/releases) page.
+1.  Download the correct `.zip` file for your browser from the [**Releases**](https://github.com/ardhrubo/email-blurrer/releases/latest) page.
+    *   `email-blurrer-chrome-vX.X.X.zip` for Chrome
+    *   `email-blurrer-firefox-vX.X.X.zip` for Firefox
+    *   `email-blurrer-edge-vX.X.X.zip` for Edge
 2.  Unzip the file to a permanent location on your computer.
-3.  Open Chrome and navigate to `chrome://extensions`.
-4.  Enable **"Developer mode"** using the toggle in the top-right corner.
-5.  Click **"Load unpacked"** and select the unzipped folder.
-6.  Pin the extension to your toolbar for easy access!
+3.  Follow the instructions for your browser to load an unpacked extension:
+    *   **Chrome/Edge:** Navigate to `chrome://extensions` or `edge://extensions`, enable **"Developer mode"**, and click **"Load unpacked"**.
+    *   **Firefox:** Navigate to `about:debugging`, click **"This Firefox"**, and then **"Load Temporary Add-on"**.
+4.  Select the unzipped folder to load the extension.
+5.  Pin the extension to your toolbar for easy access!
 
 ---
 
