@@ -10,6 +10,7 @@
       <img src="https://img.shields.io/github/stars/ardhrubo/email-blurrer" alt="GitHub Stars">
     </a>
     <img src="https://img.shields.io/badge/size-301KB-brightgreen" alt="Extension Size">
+    <img src="https://img.shields.io/badge/Google%20Chrome-blue?logo=google-chrome&logoColor=white" alt="Supports Google Chrome">
   </p>
 </div>
 
@@ -51,12 +52,12 @@ The easiest way to get started is to install Email Blurrer directly from the Chr
 
 *(Link to be added once the extension is published)*
 
-### Manually (for Developers)
+### From a ZIP File (Manual Install)
 
-If you want to run the latest version from the source code:
+If you want to run the latest version from the source code or a release:
 
 1.  Download the latest release `.zip` file from the [**Releases**](https://github.com/ardhrubo/email-blurrer/releases) page.
-2.  Unzip the file.
+2.  Unzip the file to a permanent location on your computer.
 3.  Open Chrome and navigate to `chrome://extensions`.
 4.  Enable **"Developer mode"** using the toggle in the top-right corner.
 5.  Click **"Load unpacked"** and select the unzipped folder.
@@ -89,15 +90,6 @@ This project is open source and available under the [MIT License](LICENSE).
 * 🛡️ **Safe Mode for Screen Recordings:** Engage "Safe Mode" and we slap a solid black redaction bar over all emails. Hovering won't unmask it. The CIA couldn't unmask it. You're safe.
 * 🔎 **Deep Anti-Scraping Tech:** We don't just blur plain text. We pierce right through Web Component Shadow DOMs and intercept sneaky invisible zero-width spaces (`\u200B` looking at you, Google account popups).
 * ⚡ **Ninja Hotkey:** Type `Alt+Shift+H` (or `MacCtrl+Shift+H` on Mac) to toggle protection in less time than it takes to blink.
-
----
-
-## 🚀 Installation
-
-Since we're indie and open source, you won't find us hunting for your wallet on the Chrome Web Store. Instead, follow these three simple steps to unlock ultimate power:
-
-1. Open Chrome and head to `chrome://extensions`
-2. Flick that ultra-cool **Developer mode** switch in the top right corner.
 3. Click **Load unpacked** and select this project folder.
 4. *(Optional but recommended)* Pin the extension to your toolbar so you can gaze at its beautiful icon.
 
@@ -120,3 +112,13 @@ The extension is modular and watches your active document using a highly optimiz
 **License:** Open Source. Use it, fork it, break it, fix it, send a PR. 
 
 *If this saved your job or your YouTube video, give the repo a star. Or don't. We're not your boss.* 😉
+
+---
+
+## ☕ Support the Project
+
+If you find this extension useful, please consider supporting its development. Every coffee helps!
+
+<a href="https://www.buymeacoffee.com/ardhrubo" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
+</a>
