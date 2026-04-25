@@ -3,6 +3,7 @@ const path = require('path');
 const archiver = require('archiver');
 
 const projectRoot = path.join(__dirname, '..');
+const srcDir = path.join(projectRoot, 'src');
 const distDir = path.join(projectRoot, 'dist');
 const packageJson = require(path.join(projectRoot, 'package.json'));
 const version = packageJson.version;
@@ -11,16 +12,11 @@ const filesToInclude = [
     'background.js',
     'content.js',
     'icon.png',
-    'manifest.json',
     'popup.html',
     'popup.js',
     'styles.css',
-    'test-page.html',
     'content/',
-    'popup/',
-    'promo/',
-    'scripts/browse.js',
-    'scripts/convert.js'
+    'popup/'
 ];
 
 const targets = [
@@ -60,22 +56,20 @@ async function createZip(target) {
 
     archive.pipe(output);
 
-    // Add files and directories
+    // Add files and directories from src
     filesToInclude.forEach(fileOrDir => {
-        const fullPath = path.join(projectRoot, fileOrDir);
+        const fullPath = path.join(srcDir, fileOrDir);
         if (fs.existsSync(fullPath)) {
             if (fs.lstatSync(fullPath).isDirectory()) {
                 archive.directory(fullPath, path.basename(fileOrDir));
             } else {
-                if (path.basename(fileOrDir) !== 'manifest.json') {
-                    archive.file(fullPath, { name: path.basename(fileOrDir) });
-                }
+                archive.file(fullPath, { name: path.basename(fileOrDir) });
             }
         }
     });
     
     // Add manifest
-    const manifestPath = path.join(projectRoot, target.manifest);
+    const manifestPath = path.join(srcDir, target.manifest);
     archive.file(manifestPath, { name: 'manifest.json' });
 
     await archive.finalize();
