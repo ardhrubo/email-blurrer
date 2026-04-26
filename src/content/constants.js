@@ -15,6 +15,7 @@
     EMAIL_FLAGS: "gi",
     EMAIL_WRAPPER_CLASS: "email-hider-email",
     DISPLAY_NAME_WRAPPER_CLASS: "email-hider-display-name",
+    PROFILE_PIC_CLASS: "email-hider-profile-pic",
     BLUR_CLASS: "email-hider-mode-blur",
     HIDE_CLASS: "email-hider-mode-hide",
     REDACT_CLASS: "email-hider-mode-redact",
@@ -45,6 +46,22 @@
       "[class*='sender-name']",
       "[class*='from-name']",
       "[class*='FromName']",
+    ],
+    // Selectors for profile pictures to hide securely in Safe Mode
+    PROFILE_PIC_SELECTORS: [
+      "img[src*='googleusercontent.com/a/']", // Google avatars
+      "img[src*='googleusercontent.com/-']",
+      "img.gb_Ba",
+      "img.gb_Ca",
+      "img.gb_Da",
+      "img[class*='avatar' i]",
+      "img[class*='profile' i]",
+      "img[src*='avatar' i]",
+      "img[src*='profile' i]",
+      "img.ms-Persona-image",
+      "img[class*='Persona-image']",
+      "img[alt*='profile' i]",
+      "img[alt*='avatar' i]"
     ],
     ATTRIBUTES_TO_MASK: [
       "title",

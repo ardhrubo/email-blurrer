@@ -83,6 +83,15 @@ body.email-hider-screen-recording-mode .email-hider-display-name.email-hider-mod
   user-select: none;
 }
 
+/* Safe Mode Profile Picture Redaction */
+body.email-hider-screen-recording-mode .email-hider-profile-pic {
+  filter: contrast(0) sepia(100%) hue-rotate(0deg) saturate(0) brightness(0) !important;
+  background-color: #111 !important;
+  color: transparent !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+}
+
 /* Hover reveal for display names */
 body:not(.email-hider-no-hover):not(.email-hider-screen-recording-mode) .email-hider-display-name:hover {
   filter: blur(0) !important;
