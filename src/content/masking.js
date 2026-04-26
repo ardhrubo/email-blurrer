@@ -32,12 +32,93 @@
     if (settings.mode === "hide") modeClass = constants.HIDE_CLASS;
     else if (settings.mode === "redact") modeClass = constants.REDACT_CLASS;
 
-    span.className = `${constants.EMAIL_WRAPPER_CLASS} ${modeClass}`;
+    span.className = `${constants.EMAIL_WRAPPER_CLASS}`;
     span.setAttribute("data-email-hider-original", email);
     span.textContent = email; // Always use real email so CSS hover can reveal it
+    span.classList.add(modeClass);
 
     return span;
   }
+
+  // ─── Display Name Masking ──────────────────────────────────────────────────
+
+  /**
+   * Returns the CSS mode class based on current settings.
+   */
+  function getModeClass(settings) {
+    if (settings.mode === "hide") return constants.HIDE_CLASS;
+    if (settings.mode === "redact") return constants.REDACT_CLASS;
+    return constants.BLUR_CLASS;
+  }
+
+  /**
+   * Wraps the text content of a display-name element in a masked span.
+   * Skips elements that are empty, already masked, or inside ignored zones.
+   */
+  function maskDisplayNameElement(el, settings) {
+    // Skip already-processed elements
+    if (el.querySelector(`.${constants.DISPLAY_NAME_WRAPPER_CLASS}`)) {
+      return;
+    }
+    // Skip if inside an ignored zone
+    if (el.closest(constants.IGNORE_SELECTOR)) {
+      return;
+    }
+
+    const text = el.textContent.trim();
+    if (!text) return;
+
+    const modeClass = getModeClass(settings);
+
+    const wrapper = document.createElement("span");
+    wrapper.className = `${constants.DISPLAY_NAME_WRAPPER_CLASS} ${modeClass}`;
+    wrapper.setAttribute("data-display-name-hider-original", text);
+
+    // Move all existing child nodes into the wrapper to preserve inner DOM
+    while (el.firstChild) {
+      wrapper.appendChild(el.firstChild);
+    }
+    el.appendChild(wrapper);
+    el.setAttribute("data-email-hider-name-masked", "true");
+  }
+
+  /**
+   * Removes all display-name masking, restoring original inner content.
+   */
+  function unwrapDisplayNames() {
+    const masked = document.querySelectorAll("[data-email-hider-name-masked]");
+    for (const el of masked) {
+      const wrapper = el.querySelector(`.${constants.DISPLAY_NAME_WRAPPER_CLASS}`);
+      if (wrapper) {
+        while (wrapper.firstChild) {
+          el.insertBefore(wrapper.firstChild, wrapper);
+        }
+        wrapper.remove();
+      }
+      el.removeAttribute("data-email-hider-name-masked");
+    }
+  }
+
+  /**
+   * Scans a root for display name elements and masks them.
+   */
+  function maskDisplayNames(root, settings) {
+    if (!root.querySelectorAll) return;
+
+    for (const selector of constants.DISPLAY_NAME_SELECTORS) {
+      let elements;
+      try {
+        elements = root.querySelectorAll(selector);
+      } catch (_) {
+        continue; // Skip invalid selectors gracefully
+      }
+      for (const el of elements) {
+        maskDisplayNameElement(el, settings);
+      }
+    }
+  }
+
+  // ─── Email Text Node Masking ───────────────────────────────────────────────
 
   function unwrapAll() {
     const selectors = `.${constants.EMAIL_WRAPPER_CLASS}`;
@@ -48,6 +129,7 @@
       node.replaceWith(document.createTextNode(original));
     }
 
+    unwrapDisplayNames();
     unmaskAttributes();
     unmaskInputs();
   }
@@ -175,6 +257,11 @@
       if (root.querySelectorAll) {
         maskAttributes(root, settings);
         maskInputs(root, settings);
+
+        // Mask display names (first + last name shown in email UI)
+        if (settings.hideDisplayName) {
+          maskDisplayNames(root, settings);
+        }
       }
     }
   }
