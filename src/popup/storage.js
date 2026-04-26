@@ -7,6 +7,7 @@
     blurPx: 6,
     revealOnHover: false,
     screenRecordingMode: false,
+    hideDisplayName: false,
   };
 
   ns.storage = {

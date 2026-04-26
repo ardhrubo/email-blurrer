@@ -9,6 +9,7 @@
       mode: document.getElementById("mode"),
       blurPx: document.getElementById("blurPx"),
       blurPxValue: document.getElementById("blurPxValue"),
+      hideDisplayName: document.getElementById("hideDisplayName"),
       advancedSettings: document.getElementById("advanced-settings"),
       blurSettings: document.getElementById("blur-settings"),
       recordingIndicator: document.getElementById("recording-indicator"),
@@ -22,6 +23,7 @@
     elements.mode.value = settings.mode;
     elements.blurPx.value = String(settings.blurPx);
     elements.blurPxValue.textContent = String(settings.blurPx);
+    elements.hideDisplayName.checked = settings.hideDisplayName;
 
     updateVisibility(elements, settings);
   }
@@ -57,7 +59,8 @@
         screenRecordingMode: elements.screenRecordingMode.checked,
         revealOnHover: elements.revealOnHover.checked,
         mode: elements.mode.value,
-        blurPx: Number(elements.blurPx.value)
+        blurPx: Number(elements.blurPx.value),
+        hideDisplayName: elements.hideDisplayName.checked
       };
       updateVisibility(elements, currentSettings);
       handlers.onChange(currentSettings);
@@ -67,6 +70,7 @@
     elements.screenRecordingMode.addEventListener("change", triggerUpdate);
     elements.revealOnHover.addEventListener("change", triggerUpdate);
     elements.mode.addEventListener("change", triggerUpdate);
+    elements.hideDisplayName.addEventListener("change", triggerUpdate);
     
     elements.blurPx.addEventListener("input", () => {
       elements.blurPxValue.textContent = elements.blurPx.value;

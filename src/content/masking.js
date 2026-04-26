@@ -32,12 +32,127 @@
     if (settings.mode === "hide") modeClass = constants.HIDE_CLASS;
     else if (settings.mode === "redact") modeClass = constants.REDACT_CLASS;
 
-    span.className = `${constants.EMAIL_WRAPPER_CLASS} ${modeClass}`;
+    span.className = `${constants.EMAIL_WRAPPER_CLASS}`;
     span.setAttribute("data-email-hider-original", email);
     span.textContent = email; // Always use real email so CSS hover can reveal it
+    span.classList.add(modeClass);
 
     return span;
   }
+
+  // ─── Display Name Masking ──────────────────────────────────────────────────
+
+  /**
+   * Returns the CSS mode class based on current settings.
+   */
+  function getModeClass(settings) {
+    if (settings.mode === "hide") return constants.HIDE_CLASS;
+    if (settings.mode === "redact") return constants.REDACT_CLASS;
+    return constants.BLUR_CLASS;
+  }
+
+  /**
+   * Wraps only the leaf text nodes of a display-name element in masked spans.
+   * Skips elements that are inside ignored zones or are images themselves.
+   */
+  function maskDisplayNameElement(el, settings) {
+    if (el.querySelector(`.${constants.DISPLAY_NAME_WRAPPER_CLASS}`)) return;
+    if (el.closest(constants.IGNORE_SELECTOR)) return;
+    if (el.tagName === 'IMG' || el.tagName === 'SVG') return;
+
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement && node.parentElement.closest(constants.IGNORE_SELECTOR)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    if (textNodes.length === 0) return;
+
+    const modeClass = getModeClass(settings);
+
+    for (const node of textNodes) {
+      const wrapper = document.createElement("span");
+      wrapper.className = `${constants.DISPLAY_NAME_WRAPPER_CLASS} ${modeClass}`;
+      wrapper.setAttribute("data-display-name-hider-original", node.nodeValue);
+      wrapper.textContent = node.nodeValue;
+      node.replaceWith(wrapper);
+    }
+    
+    el.setAttribute("data-email-hider-name-masked", "true");
+  }
+
+  /**
+   * Removes all display-name masking spans, restoring original text nodes.
+   */
+  function unwrapDisplayNames() {
+    const maskedSpans = document.querySelectorAll(`.${constants.DISPLAY_NAME_WRAPPER_CLASS}`);
+    for (const wrapper of maskedSpans) {
+      const original = wrapper.getAttribute("data-display-name-hider-original") || wrapper.textContent || "";
+      wrapper.replaceWith(document.createTextNode(original));
+    }
+    const markedParents = document.querySelectorAll("[data-email-hider-name-masked]");
+    for (const el of markedParents) {
+      el.removeAttribute("data-email-hider-name-masked");
+    }
+  }
+
+  /**
+   * Scans a root for display name elements and masks them.
+   */
+  function maskDisplayNames(root, settings) {
+    if (!root.querySelectorAll) return;
+
+    for (const selector of constants.DISPLAY_NAME_SELECTORS) {
+      let elements;
+      try {
+        elements = root.querySelectorAll(selector);
+      } catch (_) {
+        continue; // Skip invalid selectors gracefully
+      }
+      for (const el of elements) {
+        maskDisplayNameElement(el, settings);
+      }
+    }
+  }
+
+  // ─── Profile Picture Masking (Safe Mode Only) ────────────────────────────
+
+  function maskProfilePics(root, settings) {
+    if (!settings.screenRecordingMode) return;
+    if (!root.querySelectorAll) return;
+
+    for (const selector of constants.PROFILE_PIC_SELECTORS) {
+      let elements;
+      try {
+        elements = root.querySelectorAll(selector);
+      } catch (_) { continue; }
+
+      for (const el of elements) {
+        if (el.closest(constants.IGNORE_SELECTOR)) continue;
+        if (el.tagName === 'IMG' || el.tagName === 'SVG' || el.tagName === 'DIV') {
+          if (!el.classList.contains(constants.PROFILE_PIC_CLASS)) {
+            el.classList.add(constants.PROFILE_PIC_CLASS);
+            el.setAttribute("data-email-hider-profile-masked", "true");
+          }
+        }
+      }
+    }
+  }
+
+  function unmaskProfilePics() {
+    const masked = document.querySelectorAll(`[data-email-hider-profile-masked="true"]`);
+    for (const el of masked) {
+      el.classList.remove(constants.PROFILE_PIC_CLASS);
+      el.removeAttribute("data-email-hider-profile-masked");
+    }
+  }
+
+  // ─── Email Text Node Masking ───────────────────────────────────────────────
 
   function unwrapAll() {
     const selectors = `.${constants.EMAIL_WRAPPER_CLASS}`;
@@ -48,6 +163,8 @@
       node.replaceWith(document.createTextNode(original));
     }
 
+    unwrapDisplayNames();
+    unmaskProfilePics();
     unmaskAttributes();
     unmaskInputs();
   }
@@ -175,6 +292,14 @@
       if (root.querySelectorAll) {
         maskAttributes(root, settings);
         maskInputs(root, settings);
+
+        // Mask display names if enabled OR if safe mode is on
+        if (settings.hideDisplayName || settings.screenRecordingMode) {
+          maskDisplayNames(root, settings);
+        }
+
+        // Mask profile pics (aggressively redactions in safe mode only)
+        maskProfilePics(root, settings);
       }
     }
   }
