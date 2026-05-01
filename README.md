@@ -24,7 +24,6 @@
   </p>
 </div>
 
----
 
 ## 🎬 The Problem
 
@@ -32,9 +31,9 @@ Have you ever been recording a tutorial, leading a team meeting, or sharing your
 
 Yeah, we've been there. The slight panic. The rush to find the blur tool in your video editor. 😅
 
-**Fear no more.**
+**Don't Worry, You have the solution now**
 
----
+
 
 ## 🛡️ The Solution
 
@@ -45,7 +44,7 @@ Yeah, we've been there. The slight panic. The rush to find the blur tool in your
   <img src="promo/eb1.jpeg" width="48%" alt="Safe Mode demonstration">
 </p>
 
----
+
 
 ## 🎯 Key Features
 
@@ -60,7 +59,7 @@ Yeah, we've been there. The slight panic. The rush to find the blur tool in your
 | 🌐 **Cross-Browser** | Works on Chrome, Firefox, and Edge |
 | 📦 **Lightweight** | Only 305KB - won't slow down your browser |
 
----
+
 
 ## 🚀 Installation
 
@@ -87,7 +86,7 @@ Yeah, we've been there. The slight panic. The rush to find the blur tool in your
 
 5. Pin the extension to your toolbar for easy access! 📌
 
----
+
 
 ## 🛠️ How It Works (For the Nerds)
 
@@ -105,6 +104,8 @@ flowchart TD
     RM --> ME
 ```
 
+---
+
 ### Technical Breakdown:
 
 | File | Purpose |
@@ -114,7 +115,7 @@ flowchart TD
 | `manifest.json` | MV3 principles, cross-origin iframe support (because iframes are sneaky) |
 | `popup/ui.js` | Premium dark-mode interface where you flip the switches |
 
----
+
 
 ## ✨ Why You Need This
 
@@ -123,7 +124,7 @@ flowchart TD
 - 🔬 **Deep Anti-Scraping Tech:** We pierce right through Web Component Shadow DOMs and intercept sneaky invisible zero-width spaces (`\u200B` looking at you, Google account popups).
 - ⚡ **Ninja Hotkey:** Toggle protection in less time than it takes to blink.
 
----
+
 
 ## 📊 Performance
 
@@ -134,7 +135,7 @@ flowchart TD
 | CPU Impact | < 1% (idle mode) |
 | Email Detection | < 50ms |
 
----
+
 
 ## 🔐 Privacy Promise
 
@@ -144,7 +145,7 @@ flowchart TD
 - ✅ **No subscriptions** - Free forever
 - ✅ **Open source** - Audit the code yourself
 
----
+
 
 ## ⚖️ Pricing & License
 
@@ -153,7 +154,6 @@ flowchart TD
 
 > *"If this saved your job or your YouTube video, give the repo a star. Or don't. We're not your boss."* 😉
 
----
 
 ## 🤝 Contributing
 
@@ -165,7 +165,7 @@ Contributions are welcome! Whether it's:
 
 Check out the [**Issues**](https://github.com/ardhrubo/email-blurrer/issues) page to get started.
 
----
+
 
 ## ☕ Support the Project
 
@@ -175,7 +175,7 @@ If you find this extension useful, please consider supporting its development. E
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60">
 </a>
 
----
+
 
 <div align="center">
   <p><b>Built with ❤️ by <a href="https://github.com/ardhrubo">@ardhrubo</a></b></p>
